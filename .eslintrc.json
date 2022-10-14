@@ -1,7 +1,16 @@
 {
   "extends": ["airbnb", "next/core-web-vitals"],
   "rules": {
-    "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx"] }]
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx"] }],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "ts": "never",
+        "tsx": "never"
+      }
+    ]
   },
   "parser": "@typescript-eslint/parser",
   "overrides": [
