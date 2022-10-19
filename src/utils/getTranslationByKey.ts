@@ -8,10 +8,10 @@ export default function getTranslationByKey(key: string) {
 
   switch (locale?.toLowerCase()) {
     case 'tr':
-      return tr[key as keyof typeof tr];
+      return tr[key.toUpperCase() as keyof typeof tr];
     case 'en':
-      return en[key as keyof typeof en];
+      return en[key.toUpperCase() as keyof typeof en];
     default:
-      return en[key as keyof typeof en];
+      return en[key.toUpperCase() as keyof typeof en];
   }
 }
