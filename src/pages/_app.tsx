@@ -13,7 +13,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
             <header className="px-2 py-6">
               <Navbar />
             </header>
-            <main className="px-5 pt-2 md:px-10 md:pt-4">
+            <main className="px-5 pt-2 pb-8 md:px-10 md:pt-4">
               <Component {...pageProps} />
             </main>
           </div>
