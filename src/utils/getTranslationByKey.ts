@@ -3,7 +3,6 @@ import en from '../data/translations/en.json';
 import tr from '../data/translations/tr.json';
 
 export default function getTranslationByKey(key: string) {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const { locale } = useRouter();
 
   switch (locale?.toLowerCase()) {

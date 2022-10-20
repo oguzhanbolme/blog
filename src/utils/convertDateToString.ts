@@ -4,7 +4,6 @@ import 'dayjs/locale/tr';
 import dayjs from 'dayjs';
 
 export default function convertDateToString(date: string) {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const { locale } = useRouter();
   return dayjs(date).locale(locale || 'en').format('MMMM DD YYYY');
 }
