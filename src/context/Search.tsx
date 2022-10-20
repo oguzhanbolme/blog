@@ -5,7 +5,7 @@ import React, {
 type Context = {
   text: string;
   setText: Function;
-  selectedTags: string[];
+  selectedTags: {};
   setSelectedTags: Function;
 };
 
@@ -13,7 +13,7 @@ export const SearchContext = createContext<Context>({} as Context);
 
 export function SearchProvider({ children }: { children: ReactElement }) {
   const [text, setText] = useState('');
-  const [selectedTags, setSelectedTags] = useState([]);
+  const [selectedTags, setSelectedTags] = useState({});
 
   const value = useMemo(
     () => ({
