@@ -7,7 +7,7 @@ export default function Navbar() {
   const { locale } = useRouter();
 
   return (
-    <div className="flex justify-between">
+    <header className="flex justify-between pb-6">
       <Link href="/" locale={locale}>
         <span className="text-2xl text-white p-2 cursor-pointer rounded-lg bg-gradient-to-br from-purple-600 to-blue-500">
           Oğuzhan Bölme Blog
@@ -18,6 +18,6 @@ export default function Navbar() {
         <LanguageSelection />
         <ThemeSelection />
       </div>
-    </div>
+    </header>
   );
 }
