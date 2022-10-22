@@ -1,29 +1,15 @@
 import { useRouter } from 'next/router';
-import useSearch from '../../hooks/useSearch';
 import { Tag } from '../../types/Tag';
 
-export default function TagButton({ tag, onClick }: { tag: Tag, onClick?: () => void }) {
+export default function TagButton({ tag, onClick, isSelected }: { tag: Tag, onClick?: () => void, isSelected?: boolean }) {
   const { locale } = useRouter();
-  const search = useSearch();
 
   return (
     <button
       type="button"
-      className={`${search.selectedTags[tag.id as keyof {}] ? 'bg-purple-400' : 'bg-indigo-100'} text-indigo-800 text-lg font-semibold px-2.5 py-0.5 rounded dark:${search.selectedTags[tag.id as keyof {}] ? 'bg-purple-400' : 'bg-indigo-200'} dark:text-indigo-900`}
+      className={`${isSelected ? 'bg-purple-400' : 'bg-indigo-100'} text-indigo-800 text-lg font-semibold px-2.5 py-0.5 rounded dark:${isSelected ? 'bg-purple-400' : 'bg-indigo-200'} dark:text-indigo-900`}
       disabled={onClick === null}
-      onClick={() => {
-        if (onClick) {
-          const selectedTags = { ...search.selectedTags };
-
-          if (selectedTags[tag.id as keyof {}]) {
-            delete selectedTags[tag.id as keyof {}];
-            search.setSelectedTags(selectedTags);
-          } else {
-            (selectedTags as Record<typeof tag.id, typeof tag.id>)[tag.id] = tag.id;
-            search.setSelectedTags(selectedTags);
-          }
-        }
-      }}
+      onClick={onClick}
     >
       {tag.name[locale as keyof typeof tag.name] || tag.name.default}
 
@@ -41,4 +27,5 @@ export default function TagButton({ tag, onClick }: { tag: Tag, onClick?: () => 
 
 TagButton.defaultProps = {
   onClick: null,
+  isSelected: false,
 };
