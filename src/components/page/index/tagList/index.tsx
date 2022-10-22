@@ -1,18 +1,16 @@
-import { useRouter } from 'next/router';
 import useSearch from '../../../../hooks/useSearch';
 import { Tag } from '../../../../types/Tag';
+import TagButton from '../../../ui/TagButton';
 
 export default function TagList({ tags }: { tags: Tag[] }) {
-  const { locale } = useRouter();
   const search = useSearch();
 
   return (
     <div className="flex flex-wrap gap-4">
       {tags.map((tag: Tag) => (
-        <button
+        <TagButton
           key={tag.id}
-          type="button"
-          className={`${search.selectedTags[tag.id as keyof {}] ? 'bg-purple-400' : 'bg-indigo-100'} text-indigo-800 text-lg font-semibold px-2.5 py-0.5 rounded dark:${search.selectedTags[tag.id as keyof {}] ? 'bg-purple-400' : 'bg-indigo-200'} dark:text-indigo-900`}
+          tag={tag}
           onClick={() => {
             const selectedTags = { ...search.selectedTags };
 
@@ -24,13 +22,8 @@ export default function TagList({ tags }: { tags: Tag[] }) {
               search.setSelectedTags(selectedTags);
             }
           }}
-        >
-          {tag.name[locale as keyof typeof tag.name] || tag.name.default}
-          {' '}
-          <span className="text-white px-1 rounded-lg bg-gradient-to-br from-purple-600 to-blue-500">
-            {tag.members.length}
-          </span>
-        </button>
+          isSelected={search.selectedTags[tag.id as keyof {}]}
+        />
       ))}
     </div>
   );
