@@ -5,6 +5,7 @@ import { Post } from '../../../../types/Post';
 import { Tag } from '../../../../types/Tag';
 import useSearch from '../../../../hooks/useSearch';
 import convertDateToString from '../../../../utils/convertDateToString';
+import TagButton from '../../../ui/TagButton';
 
 export default function PostList({ posts }: { posts: Post[] }) {
   const { locale, push } = useRouter();
@@ -42,13 +43,7 @@ export default function PostList({ posts }: { posts: Post[] }) {
 
           <div className="flex flex-wrap gap-4 mb-3">
             {post.tags.map((tag: Tag) => (
-              <button
-                key={tag.id}
-                type="button"
-                className="bg-indigo-100 text-indigo-800 text-lg font-semibold px-2.5 py-0.5 rounded dark:bg-indigo-200 dark:text-indigo-900"
-              >
-                {tag.name[locale as keyof typeof tag.name] || tag.name.default}
-              </button>
+              <TagButton key={tag.id} tag={tag} />
             ))}
           </div>
 
