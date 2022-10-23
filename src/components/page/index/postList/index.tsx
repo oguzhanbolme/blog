@@ -41,7 +41,7 @@ export default function PostList({ posts }: { posts: Post[] }) {
             {convertDateToString(post.creationDate)}
           </p>
 
-          <div className="flex flex-wrap gap-4 mb-3">
+          <div className="flex flex-wrap gap-4 mb-4">
             {post.tags.map((tag: Tag) => (
               <TagButton key={tag.id} tag={tag} />
             ))}

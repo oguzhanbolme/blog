@@ -5,10 +5,9 @@ export default function TagButton({ tag, onClick, isSelected }: { tag: Tag, onCl
   const { locale } = useRouter();
 
   return (
-    <button
-      type="button"
-      className={`${isSelected ? 'bg-purple-400' : 'bg-indigo-100'} text-indigo-800 text-lg font-semibold px-2.5 py-0.5 rounded dark:${isSelected ? 'bg-purple-400' : 'bg-indigo-200'} dark:text-indigo-900`}
-      disabled={onClick === null}
+    <span
+      aria-hidden="true"
+      className={`${onClick ? 'cursor-pointer' : ''} ${isSelected ? 'bg-purple-400' : 'bg-indigo-100'} text-indigo-800 text-base md:text-lg font-semibold px-2.5 py-0.5 rounded dark:${isSelected ? 'bg-purple-400' : 'bg-indigo-200'} dark:text-indigo-900`}
       onClick={onClick}
     >
       {tag.name[locale as keyof typeof tag.name] || tag.name.default}
@@ -21,7 +20,7 @@ export default function TagButton({ tag, onClick, isSelected }: { tag: Tag, onCl
           </span>
         </>
       )}
-    </button>
+    </span>
   );
 }
 
