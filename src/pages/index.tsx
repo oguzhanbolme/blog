@@ -27,8 +27,8 @@ export default function Home({ tags, posts }: { tags: Tag[]; posts: Post[] }) {
 }
 
 export async function getStaticProps() {
-  const tags = await (await fetch(`${process.env.DOMAIN_URL}/api/tags`)).json();
-  const posts = await (await fetch(`${process.env.DOMAIN_URL}/api/posts?fields=creationDate,description,title,tags`)).json();
+  const tags = await (await fetch(`${process.env.DOMAIN_URL}/api/tags`)).json().catch(() => []);
+  const posts = await (await fetch(`${process.env.DOMAIN_URL}/api/posts?fields=creationDate,description,title,tags`)).json().catch(() => []);
 
   return {
     props: {

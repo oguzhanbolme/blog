@@ -17,7 +17,7 @@ const sanitizeOptions = {
 };
 
 export async function getStaticPaths({ locales }: { locales: string[] }) {
-  const posts = (await (await fetch(`${process.env.DOMAIN_URL}/api/posts`)).json()) as Post[];
+  const posts = (await (await fetch(`${process.env.DOMAIN_URL}/api/posts`)).json().catch(() => [])) as Post[];
   const paths: any = [];
   posts.forEach((post) => locales.forEach((locale) => paths.push({ params: { id: post.id }, locale })));
 
