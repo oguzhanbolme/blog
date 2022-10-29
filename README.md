@@ -1,4 +1,4 @@
-# Personal blog that i created to share my articles
+## Personal blog that i created to share my articles
 
 ## Live: https://blog-oguzhanbolme.vercel.app
 
@@ -6,5 +6,6 @@
 - TypeScript
 - Next.js
 - Firestore
+- Google Analytics
 - Tailwind CSS
 - Vercel
