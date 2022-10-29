@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { GetStaticPropsContext } from 'next';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import * as sanitizeHtml from 'sanitize-html';
 import Prism from 'prismjs';
 import 'prismjs/themes/prism-okaidia.css';
@@ -10,16 +9,15 @@ import convertDateToString from '../../utils/convertDateToString';
 import TagButton from '../../components/ui/TagButton';
 
 const sanitizeOptions = {
-  allowedClasses: {
-    '*': ['bg-*', 'text-*', 'font-*', 'm-*', 'p-*', 'mt-*', 'mb-*', 'pt-*', 'pb-*'],
-    code: ['language-*', 'lang-*'],
+  allowedAttributes: {
+    '*': ['class'],
   },
 };
 
-export async function getStaticPaths({ locales }: { locales: string[] }) {
+export async function getStaticPaths() {
   const posts = (await (await fetch(`${process.env.DOMAIN_URL}/api/posts`)).json().catch(() => [])) as Post[];
   const paths: any = [];
-  posts.forEach((post) => locales.forEach((locale) => paths.push({ params: { id: post.id }, locale })));
+  posts.forEach((post) => paths.push({ params: { id: post.id } }));
 
   return {
     paths,
@@ -40,26 +38,24 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 }
 
 export default function PostDetail({ post }: { post: Post }) {
-  const { locale } = useRouter();
-
   useEffect(() => {
     Prism.highlightAll();
-  }, [locale]);
+  }, []);
 
   return (
     <main>
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <title>
-          {post.title[locale as keyof typeof post.title] || post.title.default}
+          {post.title}
         </title>
         <meta
           name="title"
-          content={post.title[locale as keyof typeof post.title] || post.title.default}
+          content={post.title}
         />
         <meta
           name="description"
-          content={post.description[locale as keyof typeof post.description] || post.description.default}
+          content={post.description}
         />
         <meta name="keywords" content="Blog, JavaScript, TypeScript, React, Frontend, HTML, CSS" />
         <meta name="author" content="Oğuzhan Bölme" />
@@ -67,7 +63,7 @@ export default function PostDetail({ post }: { post: Post }) {
 
       <div className="flex flex-col gap-1 mb-8">
         <h1 className="text-3xl md:text-4xl font-bold">
-          {post.title[locale as keyof typeof post.title] || post.title.default}
+          {post.title}
         </h1>
 
         <p className="font-normal text-gray-700 dark:text-gray-400 mb-1">
@@ -82,7 +78,7 @@ export default function PostDetail({ post }: { post: Post }) {
       <div
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{
-          __html: sanitizeHtml.default(post.content[locale as keyof typeof post.content] || post.content.default, sanitizeOptions),
+          __html: sanitizeHtml.default(post.content, sanitizeOptions),
         }}
       />
     </main>

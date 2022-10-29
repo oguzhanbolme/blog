@@ -8,7 +8,7 @@ import convertDateToString from '../../../../utils/convertDateToString';
 import TagButton from '../../../ui/TagButton';
 
 export default function PostList({ posts }: { posts: Post[] }) {
-  const { locale, push } = useRouter();
+  const { push } = useRouter();
   const search = useSearch();
   const filteredPosts = useMemo(() => {
     let result = posts;
@@ -17,12 +17,12 @@ export default function PostList({ posts }: { posts: Post[] }) {
       result = posts.filter((post) => post.tags.find((tag) => tag.id === search.selectedTags[tag.id as keyof {}]));
     }
     if (search.text !== '') {
-      const fuse = new Fuse(result, { threshold: 0.25, keys: [`title.${locale}`, `description.${locale}`] });
+      const fuse = new Fuse(result, { threshold: 0.25, keys: ['title', 'description'] });
       return fuse.search(search.text).map((post) => post.item);
     }
 
     return result;
-  }, [posts, search, locale]);
+  }, [posts, search]);
 
   return (
     <div className="flex flex-col gap-6">
@@ -34,7 +34,7 @@ export default function PostList({ posts }: { posts: Post[] }) {
           className="cursor-pointer block p-6 bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
         >
           <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            {post.title[locale as keyof typeof post.title] || post.title.default}
+            {post.title}
           </h5>
 
           <p className="font-normal text-gray-700 dark:text-gray-400 mb-1">
@@ -48,7 +48,7 @@ export default function PostList({ posts }: { posts: Post[] }) {
           </div>
 
           <p className="font-normal">
-            {post.description[locale as keyof typeof post.description] || post.title.default}
+            {post.description}
           </p>
         </article>
       ))}

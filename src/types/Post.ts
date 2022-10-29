@@ -1,11 +1,10 @@
-import { DynamicContent } from './DynamicContent';
 import { Tag } from './Tag';
 
 export type Post = {
   id: string;
-  content: DynamicContent;
+  content: string;
   creationDate: string;
-  description: DynamicContent;
+  description: string;
   tags: Tag[];
-  title: DynamicContent;
+  title: string;
 };
