@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import * as sanitizeHtml from 'sanitize-html';
@@ -10,7 +10,7 @@ import TagButton from '../../components/ui/TagButton';
 
 const sanitizeOptions = {
   allowedAttributes: {
-    '*': ['class'],
+    '*': ['class', 'scope'],
   },
 };
 
@@ -38,9 +38,12 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 }
 
 export default function PostDetail({ post }: { post: Post }) {
+  const [render, setRender] = useState(false);
+
   useEffect(() => {
-    Prism.highlightAll();
-  }, []);
+    setRender(true);
+    if (render) Prism.highlightAll();
+  }, [render]);
 
   return (
     <main>
@@ -57,8 +60,14 @@ export default function PostDetail({ post }: { post: Post }) {
           name="description"
           content={post.description}
         />
-        <meta name="keywords" content="Blog, JavaScript, TypeScript, React, Frontend, HTML, CSS" />
-        <meta name="author" content="Oğuzhan Bölme" />
+        <meta
+          name="keywords"
+          content="Blog, JavaScript, TypeScript, React, Frontend, HTML, CSS"
+        />
+        <meta
+          name="author"
+          content="Oğuzhan Bölme"
+        />
       </Head>
 
       <div className="flex flex-col gap-1 mb-8">
@@ -75,12 +84,14 @@ export default function PostDetail({ post }: { post: Post }) {
         </div>
       </div>
 
-      <div
-        // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={{
-          __html: sanitizeHtml.default(post.content, sanitizeOptions),
-        }}
-      />
+      {render && (
+        <div
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{
+            __html: sanitizeHtml.default(post.content, sanitizeOptions),
+          }}
+        />
+      )}
     </main>
   );
 }
