@@ -52,22 +52,24 @@ export default function PostDetail({ post }: { post: Post }) {
         <title>
           {post.title}
         </title>
-        <meta
-          name="title"
-          content={post.title}
-        />
-        <meta
-          name="description"
-          content={post.description}
-        />
-        <meta
-          name="keywords"
-          content="Blog, JavaScript, TypeScript, React, Frontend, HTML, CSS"
-        />
-        <meta
-          name="author"
-          content="Oğuzhan Bölme"
-        />
+        <meta name="title" content={post.title} />
+        <meta name="description" content={post.description} />
+        <meta name="keywords" content="Blog, JavaScript, TypeScript, React, Frontend, HTML, CSS" />
+        <meta name="author" content="Oğuzhan Bölme" />
+
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={`https://blog-oguzhanbolme.vercel.app/posts/${post.id}`} />
+        <meta property="og:title" content={post.title} />
+        <meta property="og:description" content={post.description} />
+        <meta property="og:image" content="/android-chrome-512x512.png" />
+
+        {/* Twitter */}
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={`https://blog-oguzhanbolme.vercel.app/posts/${post.id}`} />
+        <meta property="twitter:title" content={post.title} />
+        <meta property="twitter:description" content={post.description} />
+        <meta property="twitter:image" content="/android-chrome-512x512.png" />
       </Head>
 
       <div className="flex flex-col gap-1 mb-8">
