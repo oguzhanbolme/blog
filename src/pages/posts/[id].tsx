@@ -33,7 +33,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     props: {
       post,
     },
-    revalidate: 3600,
+    revalidate: 10800,
   };
 }
 
